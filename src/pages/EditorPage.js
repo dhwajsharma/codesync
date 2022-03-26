@@ -91,7 +91,7 @@ const EditorPage = () => {
         <button className="editorPage__btn editorPage__LeaveBtn">Leave</button>
       </div>
       <div className="editorPage__editorWrap">
-        <Editor />
+        <Editor socketRef={socketRef} roomId={roomId} />
       </div>
     </div>
   );
