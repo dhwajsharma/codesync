@@ -72,6 +72,14 @@ const EditorPage = () => {
     }
   };
 
+  const leaveRoom = () => {
+    socketRef.current.emit(ACTIONS.LEAVE, {
+      roomId,
+      username: location.state?.username,
+    });
+    reactNavigator("/");
+  };
+
   if (!location.state) {
     <Navigate to="/" />;
   }
@@ -100,7 +108,12 @@ const EditorPage = () => {
         >
           Copy ROOM ID
         </button>
-        <button className="editorPage__btn editorPage__LeaveBtn">Leave</button>
+        <button
+          className="editorPage__btn editorPage__LeaveBtn"
+          onClick={leaveRoom}
+        >
+          Leave
+        </button>
       </div>
       <div className="editorPage__editorWrap">
         <Editor socketRef={socketRef} roomId={roomId} />
