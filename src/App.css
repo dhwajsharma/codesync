@@ -88,3 +88,84 @@ footer a:hover {
   border-color: #368654;
   transition: all 0.3s ease-in-out;
 }
+
+.editorPage {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  height: 100vh;
+}
+
+.editorPage__aside {
+  background: #1c1e29;
+  padding: 16px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.editorPage__asideInner {
+  flex: 1;
+}
+
+.editorPage__asideInner > h3 {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.editorPage__clientList {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.client {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.client__username {
+  margin-top: 10px;
+}
+
+.editorPage__logo {
+  border-bottom: 1px solid #424242;
+  padding-bottom: 10px;
+}
+
+.editorPage__logoImage {
+  height: 60px;
+}
+
+.editorPage__btn {
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.editorPage__copyBtn:hover {
+  opacity: 0.8;
+}
+
+.editorPage__LeaveBtn {
+  background: #4aed88;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.editorPage__LeaveBtn:hover {
+  background: #2b824c;
+}
+
+.CodeMirror {
+  min-height: calc(100vh - 20px);
+  font-size: 20px;
+  line-height: 1.6;
+  padding-top: 20px;
+}
