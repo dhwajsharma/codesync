@@ -92,7 +92,6 @@ footer a:hover {
 .editorPage {
   display: grid;
   grid-template-columns: 230px 1fr;
-  height: 100vh;
 }
 
 .editorPage__aside {

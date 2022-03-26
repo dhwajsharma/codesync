@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  Navigate,
+} from "react-router-dom";
 import Client from "../components/Client";
 import Editor from "../components/Editor";
 import { initSocket } from "../socket";
@@ -11,6 +16,8 @@ const EditorPage = () => {
   const location = useLocation();
   const { roomId } = useParams();
   const reactNavigator = useNavigate();
+
+  const [clients, setClients] = useState([]);
 
   useEffect(() => {
     const init = async () => {
@@ -28,20 +35,37 @@ const EditorPage = () => {
         roomId,
         username: location.state?.username,
       });
+
+      // listening for joined event
+      socketRef.current.on(
+        ACTIONS.JOINED,
+        ({ clients, username, socketId }) => {
+          if (username !== location.state?.username) {
+            toast.success(`${username} has joined`);
+          }
+          setClients(clients);
+        }
+      );
+
+      // listening for disconnected event
+      socketRef.current.on(ACTIONS.DISCONNECTED, ({ socketId, username }) => {
+        toast.success(`${username} has left the room.`);
+        setClients((prev) => {
+          return prev.filter((client) => client.socketId !== socketId);
+        });
+      });
     };
     init();
+    return () => {
+      socketRef.current.disconnect();
+      socketRef.current.off(ACTIONS.JOINED);
+      socketRef.current.off(ACTIONS.DISCONNECTED);
+    };
   }, []);
 
-  const [clients, setClients] = useState([
-    {
-      socketId: 1,
-      username: "dhwaj",
-    },
-    {
-      socketId: 2,
-      username: "kunal",
-    },
-  ]);
+  if (!location.state) {
+    <Navigate to="/" />;
+  }
 
   return (
     <div className="editorPage">
